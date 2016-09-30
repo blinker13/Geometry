@@ -1,0 +1,38 @@
+
+#if arch(i386) || arch(arm)
+public typealias Scalar = Float
+#elseif arch(x86_64) || arch(arm64) || arch(s390x) || arch(powerpc64) || arch(powerpc64le)
+public typealias Scalar = Double
+#else
+#error("This architecture is not supported")
+#endif
+
+// MARK: -
+
+public protocol SIMDRepresentable : ExpressibleByFloatLiteral {
+
+	associatedtype Storage : SIMD where Storage.Scalar == Scalar
+
+	var storage: Storage { get }
+	init(_ storage: Storage)
+}
+
+// MARK: -
+
+public extension SIMDRepresentable where Self : Arithmetic {
+
+	@inlinable static var zero: Self { .init(.zero) }
+
+	@inlinable static prefix func - (value: Self) -> Self { .init(-value.storage) }
+
+	@inlinable static func + (left: Self, right: Self) -> Self { .init(left.storage + right.storage) }
+	@inlinable static func - (left: Self, right: Self) -> Self { .init(left.storage - right.storage) }
+	@inlinable static func * (left: Self, right: Self) -> Self { .init(left.storage * right.storage) }
+	@inlinable static func / (left: Self, right: Self) -> Self { .init(left.storage / right.storage) }
+
+	@inlinable init(floatLiteral value: Scalar) { self.init(Storage(repeating: value)) }
+
+	@inlinable func rounded(_ rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
+		.init(storage.rounded(rule))
+	}
+}
