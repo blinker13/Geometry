@@ -27,10 +27,8 @@ public extension Size {
 	@inlinable func inseted(by space: Space) -> Self {
 		.init(storage - space.storage.highHalf - space.storage.lowHalf)
 	}
-}
 
-extension Size : Transformable {
-	public func applying(_ transform: Transform) -> Self {
+	@inlinable func applying(_ transform: Transform) -> Self {
 		let w = transform.a * width + transform.c * height
 		let h = transform.b * width + transform.d * height
 		return .init(width: w, height: h)

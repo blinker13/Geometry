@@ -22,12 +22,8 @@ public extension Polygon {
 	@inlinable init(arrayLiteral elements: Point ...) {
 		self.points = elements
 	}
-}
 
-// MARK: -
-
-extension Polygon : Transformable {
-	public func applying(_ transform: Transform) -> Self {
+	@inlinable func applying(_ transform: Transform) -> Self {
 		let newPoints = points.applying(transform)
 		return .init(with: newPoints)
 	}

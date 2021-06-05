@@ -26,14 +26,10 @@ public extension Line {
 		start = from
 		end = to
 	}
-}
 
-// MARK: -
-
-extension Line : Transformable {
-	public func applying(_ transform: Transform) -> Self {
+	@inlinable func applying(_ transform: Transform) -> Self {
 		let a = start.applying(transform)
 		let b = end.applying(transform)
-		return .init(start: a, end: b)
+		return .init(from: a, to: b)
 	}
 }

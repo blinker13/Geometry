@@ -46,11 +46,9 @@ public extension Path {
 	@inlinable init(arrayLiteral elements: Element ...) {
 		self.elements = elements
 	}
-}
 
-//extension Path : Transformable {
-//	func transformed(by transform: Transform) -> Self {
-//		// TODO: implementation
-//		return self
-//	}
-//}
+	@inlinable func transformed(by transform: Transform) -> Self {
+		#warning("Needs Implementation")
+		return self
+	}
+}

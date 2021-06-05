@@ -24,36 +24,32 @@ public struct Transform : Hashable {
 
 // MARK: -
 
-extension Transform {
+public extension Transform {
 
-	@inlinable public static var identity: Self { .init(1, 0, 0, 1, 0, 0) }
+	@inlinable static var identity: Self { .init(1, 0, 0, 1, 0, 0) }
 
-	@inlinable public static func rotate(by angle: Angle = .half) -> Self { .init(rotate: angle) }
-	@inlinable public static func scale(by size: Size) -> Self { .init(scale: size) }
-	@inlinable public static func translate(by point: Point) -> Self { .init(translate: point) }
+	@inlinable static func rotate(by angle: Angle = .half) -> Self { .init(rotate: angle) }
+	@inlinable static func scale(by size: Size) -> Self { .init(scale: size) }
+	@inlinable static func translate(by point: Point) -> Self { .init(translate: point) }
 
-	@inlinable public init(_ a: Scalar, _ b: Scalar, _ c: Scalar, _ d: Scalar, _ x: Scalar, _ y: Scalar) {
+	@inlinable init(_ a: Scalar, _ b: Scalar, _ c: Scalar, _ d: Scalar, _ x: Scalar, _ y: Scalar) {
 		(self.a, self.b, self.c, self.d, self.x, self.y) = (a, b, c, d, x, y)
 	}
 
-	@inlinable public init(rotate angle: Angle) {
+	@inlinable init(rotate angle: Angle) {
 		// TODO: calculate transformation values
 		self.init(1, 0, 0, 1, 0, 0)
 	}
 
-	@inlinable public init(scale size: Size) {
+	@inlinable init(scale size: Size) {
 		self.init(size.width, 0, 0, size.height, 0, 0)
 	}
 
-	@inlinable public init(translate point: Point) {
+	@inlinable init(translate point: Point) {
 		self.init(1, 0, 0, 1, point.x, point.y)
 	}
-}
 
-// MARK: -
-
-extension Transform : Transformable {
-	public func applying(_ transform: Self) -> Self {
+	@inlinable func applying(_ transform: Self) -> Self {
 		let newA = transform.a * a + transform.b * c
 		let newB = transform.a * b + transform.b * d
 		let newC = transform.c * a + transform.d * c

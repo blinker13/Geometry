@@ -60,16 +60,12 @@ public extension Rectangle {
 		vertical.contains(point.x) && horizontal.contains(point.y)
 	}
 	
-	@inlinable func inset(_ space: Space) -> Self {
+	@inlinable func inseted(by space: Space) -> Self {
 		let new = Point(origin.storage + space.storage.highHalf)
 		return .init(origin: new, size: size.inseted(by: space))
 	}
-}
 
-// MARK: -
-
-extension Rectangle : Transformable {
-	public func applying(_ transform: Transform) -> Self {
+	@inlinable func applying(_ transform: Transform) -> Self {
 		let newOrigin = origin.applying(transform)
 		let newSize = size.applying(transform)
 		return .init(origin: newOrigin, size: newSize)

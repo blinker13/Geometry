@@ -35,12 +35,8 @@ public extension Point {
 	@inlinable init(xy: Scalar) {
 		storage = .init(repeating: xy)
 	}
-}
 
-// MARK: -
-
-extension Point : Transformable {
-	public func applying(_ transform: Transform) -> Self {
+	@inlinable func applying(_ transform: Transform) -> Self {
 		let newX = transform.a * x + transform.c * y + transform.x
 		let newY = transform.b * x + transform.d * y + transform.y
 		return .init(x: newX, y: newY)
