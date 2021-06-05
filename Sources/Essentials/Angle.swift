@@ -1,5 +1,5 @@
 
-public struct Angle : Arithmetic, Comparable {
+public struct Angle : Arithmetic, Codable, Comparable {
 
 	@usableFromInline internal let rawValue: Scalar
 
@@ -33,6 +33,16 @@ public extension Angle {
 
 	@inlinable init(degrees: Scalar) { rawValue = degrees / 180.0 * .pi }
 	@inlinable init(radians: Scalar) { rawValue = radians }
+
+	@inlinable init(from decoder: Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		rawValue = try container.decode(Scalar.self)
+	}
+
+	@inlinable func encode(to encoder: Encoder) throws {
+		var container = encoder.singleValueContainer()
+		try container.encode(rawValue)
+	}
 
 	@inlinable func rounded(_ rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
 		.init(rawValue.rounded(rule))

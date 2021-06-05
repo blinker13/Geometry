@@ -36,3 +36,17 @@ public extension SIMDRepresentable where Self : Arithmetic {
 		.init(storage.rounded(rule))
 	}
 }
+
+// MARK: -
+
+public extension SIMDRepresentable where Self : Codable {
+
+	@inlinable init(from decoder: Decoder) throws {
+		let storage = try Storage(from: decoder)
+		self.init(storage)
+	}
+
+	@inlinable func encode(to encoder: Encoder) throws {
+		try storage.encode(to: encoder)
+	}
+}
