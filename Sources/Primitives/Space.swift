@@ -1,16 +1,31 @@
 
 public struct Space : Arithmetic, Codable, SIMDRepresentable {
-	public let storage: SIMD4<Scalar>
+	public var storage: SIMD4<Scalar>
 }
 
 // MARK: -
 
 public extension Space {
 
-	@inlinable var top: Scalar { storage.y }
-	@inlinable var left: Scalar { storage.x }
-	@inlinable var bottom: Scalar { storage.w }
-	@inlinable var right: Scalar { storage.z }
+	@inlinable var top: Scalar {
+		get { storage.y }
+		set { storage.y = newValue }
+	}
+
+	@inlinable var left: Scalar {
+		get { storage.x }
+		set { storage.x = newValue }
+	}
+
+	@inlinable var bottom: Scalar {
+		get { storage.w }
+		set { storage.w = newValue }
+	}
+
+	@inlinable var right: Scalar {
+		get { storage.z }
+		set { storage.z = newValue }
+	}
 
 	@inlinable init(_ value: SIMD4<Scalar>) {
 		storage = value

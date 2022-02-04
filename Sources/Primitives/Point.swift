@@ -1,6 +1,6 @@
 
 public struct Point : Codable, Geometry {
-	public let storage: SIMD2<Scalar>
+	public var storage: SIMD2<Scalar>
 }
 
 // MARK: -
@@ -21,8 +21,15 @@ public extension Point {
 
 	@inlinable static var center: Self { 0.5 }
 
-	@inlinable var x: Scalar { storage.x }
-	@inlinable var y: Scalar { storage.y }
+	@inlinable var x: Scalar {
+		get { storage.x }
+		set { storage.y = newValue }
+	}
+
+	@inlinable var y: Scalar {
+		get { storage.y }
+		set { storage.y = newValue }
+	}
 
 	@inlinable init(_ value: SIMD2<Scalar>) {
 		storage = value

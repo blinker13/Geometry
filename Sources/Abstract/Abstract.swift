@@ -13,7 +13,7 @@ public protocol SIMDRepresentable : ExpressibleByFloatLiteral {
 
 	associatedtype Storage : SIMD where Storage.Scalar == Scalar
 
-	var storage: Storage { get }
+	var storage: Storage { get set }
 	init(_ storage: Storage)
 }
 

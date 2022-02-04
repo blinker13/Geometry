@@ -1,14 +1,21 @@
 
 public struct Size : Codable, Geometry {
-	public let storage: SIMD2<Scalar>
+	public var storage: SIMD2<Scalar>
 }
 
 // MARK: -
 
 public extension Size {
 
-	@inlinable var width: Scalar { storage.x }
-	@inlinable var height: Scalar { storage.y }
+	@inlinable var width: Scalar {
+		get { storage.x }
+		set { storage.x = newValue }
+	}
+
+	@inlinable var height: Scalar {
+		get { storage.y }
+		set { storage.y = newValue }
+	}
 
 	@inlinable var isEmpty: Bool { width == .zero || height == .zero }
 

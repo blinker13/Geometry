@@ -25,14 +25,17 @@ public extension Angle {
 
 	@inlinable static func < (left: Self, right: Self) -> Bool { left.rawValue < right.rawValue }
 
-	@inlinable static func degrees(_ value: Scalar) -> Self { .init(value / 180.0 * .pi) }
-	@inlinable static func radians(_ value: Scalar) -> Self { .init(value) }
+	@inlinable static func degrees(_ value: Scalar) -> Self { .init(degrees: value) }
+	@inlinable static func radians(_ value: Scalar) -> Self { .init(radians: value) }
 
 	@inlinable var degrees: Scalar { rawValue * 180.0 / .pi }
 	@inlinable var radians: Scalar { rawValue }
 
+	@inlinable init(degrees: Scalar) { rawValue = degrees / 180.0 * .pi }
+	@inlinable init(radians: Scalar) { rawValue = radians }
+
 	@inlinable init(from decoder: Decoder) throws {
-		rawValue = try .init(from: decoder)
+		rawValue = try Scalar(from: decoder)
 	}
 
 	@inlinable func encode(to encoder: Encoder) throws {

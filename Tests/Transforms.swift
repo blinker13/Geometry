@@ -55,7 +55,7 @@ class Transforms : XCTestCase {
 	}
 
 	func test_inverted() {
-		let subject = Transform(1, 2, 3, 4, 5, 6).inverted
+		let subject = Transform(1, 2, 3, 4, 5, 6).inverted()
 		XCTAssertEqual(subject.a, -2.0)
 		XCTAssertEqual(subject.b, 1.0)
 		XCTAssertEqual(subject.c, 1.5)
